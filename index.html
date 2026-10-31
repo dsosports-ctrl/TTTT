@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Asana tracking stopwatch with holding timers and total session time.">
+    <title>TIME JUDGE - Asana Tracking Stopwatch</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./style.css">
+    <script src="./script.js" defer></script>
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="topbar">
+        <div class="brand">
+          <span class="brand-dot" aria-hidden="true"></span>
+          <span class="brand-name">TIME JUDGE</span>
+          <span class="status-chip" id="sessionStatus" aria-live="polite">STANDBY</span>
+        </div>
+        <div class="utilities">
+          <span class="shortcut-hint">Spacebar: <strong id="shortcutAction">Start</strong></span>
+          <button class="utility-button sound-button" id="soundToggle" type="button" aria-label="Mute audio feedback" title="Mute audio feedback">
+            <span id="soundIcon" aria-hidden="true">♪</span>
+            <span class="sound-label" id="soundLabel">Sound on</span>
+          </button>
+          <button class="utility-button code-button" id="openCode" type="button">View script.js</button>
+        </div>
+      </header>
+
+      <main class="dashboard-container">
+        <section class="left-panel" aria-label="Stopwatch controls">
+          <div class="premium-total-badge" title="Goal: 151 to 190 seconds">
+            <span class="total-title-text">TOTAL TIME IN SECONDS</span>
+            <span class="total-number-badge" id="totalDisplay" aria-live="off">0</span>
+          </div>
+
+          <div class="timer-display" id="display" role="timer" aria-live="off">
+            <span id="mainTime">00:00</span><span id="ms">.00</span>
+          </div>
+
+          <div class="buttons-row">
+            <button class="btn start" id="mainBTN" type="button">Start</button>
+            <button class="early-stop" id="endSession" type="button" hidden>■ &nbsp;End Total Time Early</button>
+            <p class="session-ended-note" id="endedNote" hidden>Total time halted. Click <strong>Reset All</strong> to clear for next round.</p>
+          </div>
+        </section>
+
+        <section class="right-panel" aria-label="Asana holding times">
+          <div class="history-section">
+            <div class="history-heading">
+              <h1 class="history-title">Holding Time</h1>
+              <span class="slot-count" id="slotCount">0/10 Asanas</span>
+            </div>
+            <div class="matrix-column" id="singleColumn"></div>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <div class="modal-overlay" id="resetModal" aria-hidden="true">
+      <section class="modal-box" role="dialog" aria-modal="true" aria-labelledby="resetTitle" aria-describedby="resetDescription">
+        <div class="warning-icon" aria-hidden="true">!</div>
+        <h2 id="resetTitle">Reset Session?</h2>
+        <p id="resetDescription">This will reset all 10 asana records, clear the total time, and return the dashboard to its initial state.</p>
+        <div class="modal-buttons">
+          <button class="modal-btn yes" id="confirmReset" type="button">↻ &nbsp;Yes, Reset All</button>
+          <button class="modal-btn no" id="cancelReset" type="button">Cancel</button>
+        </div>
+      </section>
+    </div>
+
+    <div class="modal-overlay" id="codeModal" aria-hidden="true">
+      <section class="modal-box code-modal" role="dialog" aria-modal="true" aria-labelledby="codeTitle">
+        <div class="code-heading">
+          <div>
+            <h2 id="codeTitle">Stopwatch JavaScript</h2>
+            <p>Source currently used by this stopwatch.</p>
+          </div>
+          <button class="close-button" id="closeCode" type="button" aria-label="Close source viewer">×</button>
+        </div>
+        <div class="code-toolbar">
+          <span>script.js</span>
+          <div>
+            <button class="code-action" id="copyCode" type="button">Copy</button>
+            <a class="code-action download-link" href="./script.js" download="script.js">Download</a>
+          </div>
+        </div>
+        <pre class="code-view" id="scriptSource" tabindex="0">Loading script.js…</pre>
+        <p class="code-message" id="codeMessage" role="status"></p>
+      </section>
+    </div>
+    <p class="sr-only" id="liveMessage" aria-live="polite"></p>
+  </body>
+</html>
